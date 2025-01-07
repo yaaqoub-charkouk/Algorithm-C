@@ -1,47 +1,52 @@
 #include <stdio.h>
 
-
-int	*delete_cell(int *tab, int del, int n)
+int main(void)
 {
-	int tab2[n];
-	int i = 0;
+	int n, x, i, j, swap;
 
-	while (i < n)
-	{
-		if (tab[i] == del && i < n - 1)
-			i++;
-		tab2[i] = tab[i];
-		i++;
-	}
-	return (tab2);
-}
-int	main(void)
-{
-	int tab[4] = {1, 2, 3, 4};
-	int i = 0;
-	int n ;
-	int temp, del;
-	int *tab1 = &tab;
-
-	printf("%s", "input the tab size:\t");
+	printf("%s", "saisir svp la taille du tablea:\t");
 	scanf("%d", &n);
-	printf("%s", "input the value to delete:\t");
-	scanf("%d", &del);
-	while (i < n - 1)
+	int tab[n];
+	for (i = 0; i < n; i++)
+	{
+		printf("%s", "saisir svp la valeur de l'element:\t");
+		scanf("%d", &x);
+		tab[i] = x;
+	}
+	i = 0;
+	while (i < n)
 	{
 		if (tab[i] < tab[i + 1])
 		{
-			temp = tab[i];
+			swap = tab[i];
 			tab[i] = tab[i + 1];
-			tab[i + 1] = temp;
+			tab[i + 1] = swap;
 			i = 0;
 		}
 		else
+		{
 			i++;
+		}
 	}
-
-	tab1 = delete_cell(tab, del, n);
-	i = 0;
-	while (i < 4) printf("%d", tab[i++]);
+	// deleting a cell x;
+	printf("%s", "saisir svp la valeur de l'element a supprimer:\t");
+	scanf("%d", &x);
+	for (i = 0; i < n; i++)
+	{
+		if (tab[i] == x)
+		{
+			for (j = i; j < n - 1; j++)
+			{
+				tab[j] = tab[j + 1];
+			}
+			n--;
+			i--;
+		}
+	}
+	// printing the table;
+	for (i = 0; i < n; i++)
+	{
+		printf("%d\t", tab[i]);
+	}
 	return (0);
 }
