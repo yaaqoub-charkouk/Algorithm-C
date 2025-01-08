@@ -27,7 +27,7 @@ int	*taille_mots(char *s)
 	int size, i, count, j;
 
 	size = nbre_mots(s);
-	tailles = malloc(size * sizeof(char));
+	tailles = malloc(size * sizeof(int));
 	if (!tailles)
 		return (NULL);
 	i = 0;
@@ -44,15 +44,19 @@ int	*taille_mots(char *s)
 		}
 		i++;
 	}
-	return (tailles);//with size from nbr_mots
+	if (count > 0)
+		tailles[j++] = count;
+	return (tailles); // with size from nbr_mots
 }
 int main(void)
 {
-	char *ch;
-	int size, i = 1, j = 0, count = 0;
+	char ch[100];
+	int size, i = 0, j = 0, count = 0;
 	int *tailles;
 
-	printf("saisir la chaine de char:\t");
+
+	
+	printf("saisir la chaine de char: ");
 	gets(ch);
 	size = nbre_mots(ch);
 	tailles = taille_mots(ch);
@@ -73,11 +77,13 @@ int main(void)
 			count++;
 		if (count == i)
 		{
+			if (ch[j] == ' ')
+				j++;
 			while (ch[j] && ch[j] != ' ')
 				write(1, &ch[j++], 1);
 		}
-		else
-			j++;
+		j++;
 	}
+	free(tailles);
 	return (0);
 }
